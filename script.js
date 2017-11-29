@@ -9,6 +9,7 @@ request.get(url, (error, response, body) => {
   var newJson = {};
   newJson["price"] = json.bpi["USD"].rate_float;
   newJson["chart"] = json.chartName;
+  console.log(newJson);
   writeFile(newJson);
 
 
@@ -16,7 +17,7 @@ request.get(url, (error, response, body) => {
 
 
 function writeFile(jsonData){
-  fs.writeFile("json.txt", JSON.stringify(jsonData), function(err) {
+  fs.writeFile("/Users/garycoltrane/desktop/projects/gormanly/data.json", JSON.stringify(jsonData), function(err) {
       if(err) {
           return console.log(err);
       }
