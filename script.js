@@ -7,10 +7,9 @@ const url =
 request.get(url, (error, response, body) => {
   let json = JSON.parse(body);
   var newJson = {};
-  newJson["price"] = json.bpi["USD"].rate_float;
+  newJson["USDprice"] = json.bpi["USD"].rate_float;
   newJson["chart"] = json.chartName;
-  console.log(newJson);
-  writeFile(newJson);
+ writeFile(newJson);
 
 
 });

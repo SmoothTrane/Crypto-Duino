@@ -5,36 +5,40 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 int incomingByte = 0;
 byte byteRead;
-String json = "{}";
-      StaticJsonBuffer<200> jsonBuffer;
+StaticJsonBuffer<200> jsonBuffer;
+int switchState1;
+int switchState2;
+String json;
+bool serialUploaded;
 
-void setup() {  
+
+void setup() {
 
 Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   analogWrite(9, 2);
   lcd.begin(16, 2);
-      
 
-    
 
-} 
+
+
+}
 
 void loop() {
 
 if (Serial.available()) {
-    /* read the most recent byte */
-    String json =  Serial.readString();
-JsonObject& root = jsonBuffer.parseObject(json);
-//
-//"{"chart":"bitcoin", "price":"9,725.2038"}"
+    json = Serial.readString();
+  JsonObject& root = jsonBuffer.parseObject(json);
   String chartName = root["chart"].as<String>();
-  String price = root["price"].as<String>();
-
-//    /*ECHO the value that was read, back to the serial port. */
+  String usdPrice = root["USDprice"].as<String>();
     lcd.setCursor(0,0);
     lcd.print(chartName);
     lcd.setCursor(0,1);
-    lcd.print("$" + price);
+    lcd.print("$" + usdPrice);
+
   }
+
+
+
+
 
 }
